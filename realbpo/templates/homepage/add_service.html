@@ -1,0 +1,14 @@
+{% extends "homepage/base.html" %}
+
+{% block body %}
+<h2>Add Outsourced Service to {{ project.name }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ service_form.as_p }}
+    <button type="submit">Add Service</button>
+</form>
+
+<a href="{% url 'view_project' project.id %}">Back to Project</a>
+{% endblock body %}
+

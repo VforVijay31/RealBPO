@@ -1,0 +1,28 @@
+
+{% extends "homepage/base.html" %}
+{% block body %}
+<h2>Create Employee</h2>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="username">Employee Username:</label>
+        <input type="text" id="username" name="username" required>
+    </div>
+    <div>
+        <label for="password">Employee Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Create Employee</button>
+</form>
+{% endblock body %}
+
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+

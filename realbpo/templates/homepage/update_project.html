@@ -1,0 +1,35 @@
+{% extends "homepage/base.html" %}
+
+{% block body %}
+<h2>Edit Project: {{ project.name }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ project_form.as_p }}
+    <button type="submit">Save Changes</button>
+</form>
+
+<h3>Outsourced Services</h3>
+<ul>
+    {% for service in project.services.all %}
+        <li>
+            <strong>{{ service.service_name }}</strong><br>
+            Provider: {{ service.provider_name }}<br>
+            Status: {{ service.status }}<br>
+            Completion: {{ service.completion_percentage }}%<br>
+            Contact No: {{ service.contact_no }}<br>
+            Email: {{ service.contact_mail }}<br>
+
+            <a href="{% url 'edit_service' service.id %}" class="btn btn-sm btn-secondary">Edit Service</a>
+        </li>
+        <hr>
+    {% empty %}
+        <li>No outsourced services yet.</li>
+    {% endfor %}
+</ul>
+
+
+<a href="{% url 'add_service' project.id %}">Add New Service</a>
+
+<a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+{% endblock body %}

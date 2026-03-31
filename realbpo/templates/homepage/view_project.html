@@ -1,0 +1,30 @@
+<h2>Project Details</h2>
+<p><strong>Name:</strong> {{ project.name }}</p>
+<p><strong>Status:</strong> {{ project.status }}</p>
+<p><strong>Description:</strong> {{ project.description }}</p>
+
+<h3>Outsourced Services</h3>
+<ul>
+    {% for service in project.services.all %}
+        <li>
+            <strong>{{ service.service_name }}</strong><br>
+            Provider: {{ service.provider_name }}<br>
+            Status: {{ service.status }}<br>
+            Completion: {{ service.completion_percentage }}%<br>
+            Contact No: {{ service.contact_no }}<br>
+            Email: {{ service.contact_mail }}<br>
+
+            <a href="{% url 'edit_service' service.id %}" class="btn btn-sm btn-secondary">Edit Service</a>
+        </li>
+        <hr>
+    {% empty %}
+        <li>No outsourced services yet.</li>
+    {% endfor %}
+</ul>
+
+
+{% if request.user.profile.role in "owner employee" %}
+    <a href="{% url 'add_service' project.id %}">Add New Service</a>
+
+{% endif %}
+<a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>

@@ -1,0 +1,12 @@
+{% extends "homepage/base.html" %}
+
+{% block body %}
+<h2>Create Project</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ project_form.as_p }}
+    <button type="submit">Create Project</button>
+</form>
+<a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+{% endblock body %}

@@ -1,0 +1,12 @@
+<h2>My Projects</h2>
+<ul>
+    {% for project in projects %}
+        <li>
+            {{ project.name }} - {{ project.status }}
+            <a href="{% url 'update_project' project.id %}">Edit</a>
+            <a href="{% url 'delete_project' project.id %}">Delete</a>
+        </li>
+    {% empty %}
+        <li>No projects yet.</li>
+    {% endfor %}
+</ul>

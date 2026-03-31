@@ -1,0 +1,21 @@
+{% extends "homepage/base.html" %}
+
+{% block body %}
+<h2>Employee Dashboard</h2>
+<p>Owner: {{ owner.username }}</p>   <!-- ✅ Owner name shown here -->
+
+<p>Welcome, {{ request.user.username }} (Employee)</p>
+
+<h3>Your Projects</h3>
+<ul>
+    {% for project in projects %}
+        <li>
+            {{ project.name }} 
+            <a href="{% url 'view_project' project.id %}">View</a>
+            <a href="{% url 'update_project' project.id %}">Edit</a>
+        </li>
+    {% empty %}
+        <li>No projects yet.</li>
+    {% endfor %}
+</ul>
+{% endblock body %}

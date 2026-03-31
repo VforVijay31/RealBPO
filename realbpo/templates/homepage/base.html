@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RealBPO</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+
+            {% if user.is_authenticated %}
+                <li>Welcome, {{ user.username }}</li>
+                <li></li>
+                <li>
+                    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none;border:none;color:blue;cursor:pointer;">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            {% else %}
+                <li><a href="{% url 'owner_login' %}">Owner Login</a></li>
+                <li><a href="{% url 'employee_login' %}">Employee Login</a></li>
+                <li><a href="{% url 'register_user' %}">Signup</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% block body %}
+    {% endblock body %}
+</body>
+</html>

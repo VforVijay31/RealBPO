@@ -1,0 +1,34 @@
+{% extends "homepage/base.html" %}
+
+{% block body %}
+<h2>Owner Dashboard</h2>
+<p>Welcome, {{ request.user.username }} (Owner)</p>
+<a href="{% url 'create_employee' %}">Create Employee</a>
+<a href="{% url 'create_project' %}">Create New Project</a>
+
+<h3>Your Projects</h3>
+<ul>
+    {% for project in projects %}
+        <li>
+            {{ project.name }} 
+            <a href="{% url 'view_project' project.id %}">View</a>
+            <a href="{% url 'update_project' project.id %}">Edit</a>
+            <a href="{% url 'delete_project' project.id %}">Delete</a>
+        </li>
+    {% empty %}
+        <li>No projects yet.</li>
+    {% endfor %}
+</ul>
+
+
+<h3>Your Employees</h3>
+<ul>
+    {% for employee in employees %}
+        <li>{{ employee.user.username }}</li>
+    {% empty %}
+        <li>No employees yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock body %}
+

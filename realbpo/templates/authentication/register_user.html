@@ -1,0 +1,30 @@
+{% extends "homepage/base.html" %}
+{% block body %}
+<h2>Register as Owner</h2>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+    </div>
+
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+
+    <button type="submit">Register</button>
+</form>
+
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% endblock body %}
+
