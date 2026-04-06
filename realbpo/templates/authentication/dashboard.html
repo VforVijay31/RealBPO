@@ -1,34 +1,52 @@
 {% extends "homepage/base.html" %}
 
 {% block body %}
-<h2>Owner Dashboard</h2>
-<p>Welcome, {{ request.user.username }} (Owner)</p>
-<a href="{% url 'create_employee' %}">Create Employee</a>
-<a href="{% url 'create_project' %}">Create New Project</a>
+<section class="section-card">
+    <div class="section-header">
+        <div>
+            <p class="eyebrow">Owner Dashboard</p>
+            <h1>Welcome, {{ request.user.username }}</h1>
+        </div>
+        <div class="action-row">
+            <a href="{% url 'create_employee' %}" class="button-link button-link-secondary">Create Employee</a>
+            <a href="{% url 'create_project' %}" class="button-link">Create Project</a>
+        </div>
+    </div>
+</section>
 
-<h3>Your Projects</h3>
-<ul>
-    {% for project in projects %}
-        <li>
-            {{ project.name }} 
-            <a href="{% url 'view_project' project.id %}">View</a>
-            <a href="{% url 'update_project' project.id %}">Edit</a>
-            <a href="{% url 'delete_project' project.id %}">Delete</a>
-        </li>
-    {% empty %}
-        <li>No projects yet.</li>
-    {% endfor %}
-</ul>
+<section class="content-grid two-column">
+    <article class="section-card">
+        <h2>Your Projects</h2>
+        <div class="item-list">
+            {% for project in projects %}
+                <div class="list-card">
+                    <div>
+                        <h3>{{ project.name }}</h3>
+                    </div>
+                    <div class="action-row compact">
+                        <a href="{% url 'view_project' project.id %}">View</a>
+                        <a href="{% url 'update_project' project.id %}">Edit</a>
+                        <a href="{% url 'delete_project' project.id %}" class="danger-link">Delete</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="empty-state">No projects yet.</p>
+            {% endfor %}
+        </div>
+    </article>
 
-
-<h3>Your Employees</h3>
-<ul>
-    {% for employee in employees %}
-        <li>{{ employee.user.username }}</li>
-    {% empty %}
-        <li>No employees yet.</li>
-    {% endfor %}
-</ul>
-
+    <article class="section-card">
+        <h2>Your Employees</h2>
+        <div class="item-list">
+            {% for employee in employees %}
+                <div class="list-card">
+                    <h3>{{ employee.user.username }}</h3>
+                    <p>Employee account</p>
+                </div>
+            {% empty %}
+                <p class="empty-state">No employees yet.</p>
+            {% endfor %}
+        </div>
+    </article>
+</section>
 {% endblock body %}
-

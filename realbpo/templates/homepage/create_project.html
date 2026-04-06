@@ -1,12 +1,16 @@
 {% extends "homepage/base.html" %}
 
 {% block body %}
-<h2>Create Project</h2>
-
-<form method="POST">
-    {% csrf_token %}
-    {{ project_form.as_p }}
-    <button type="submit">Create Project</button>
-</form>
-<a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+<section class="form-card">
+    <p class="eyebrow">Project Setup</p>
+    <h1>Create Project</h1>
+    <form method="POST" class="styled-form django-form">
+        {% csrf_token %}
+        {{ project_form.as_p }}
+        <div class="action-row">
+            <button type="submit" class="primary-button">Create Project</button>
+            <a href="{% url 'dashboard' %}" class="button-link button-link-secondary">Back to Dashboard</a>
+        </div>
+    </form>
+</section>
 {% endblock body %}

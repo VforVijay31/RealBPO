@@ -1,4 +1,31 @@
 {% extends "homepage/base.html" %}
-{%block body%}
+{% block body %}
+<section class="hero-card">
+    <div class="hero-copy">
+        <p class="eyebrow">Business Process Tracking</p>
+        <h1>Manage projects, services, and team access in one place.</h1>
+        <p class="section-copy">
+            RealBPO gives owners and employees a clear view of ongoing projects and outsourced services
+            without unnecessary complexity.
+        </p>
+        <div class="action-row">
+            <a href="{% url 'register_user' %}" class="button-link">Create Owner Account</a>
+        </div>
+    </div>
+</section>
 
-{%endblock body%}
+<section class="content-grid">
+    <article class="info-card">
+        <h2>For Owners</h2>
+        <p>Create projects, add employees, and manage outsourced service records from a single dashboard.</p>
+    </article>
+    <article class="info-card">
+        <h2>For Employees</h2>
+        <p>Review assigned projects, update progress where allowed, and keep service information current.</p>
+    </article>
+    <article class="info-card">
+        <h2>For Teams</h2>
+        <p>Use a straightforward workflow with simple pages, readable forms, and project-focused navigation.</p>
+    </article>
+</section>
+{% endblock body %}

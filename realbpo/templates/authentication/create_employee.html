@@ -1,28 +1,20 @@
-
 {% extends "homepage/base.html" %}
 {% block body %}
-<h2>Create Employee</h2>
-<form method="post">
-    {% csrf_token %}
-    <div>
-        <label for="username">Employee Username:</label>
-        <input type="text" id="username" name="username" required>
-    </div>
-    <div>
-        <label for="password">Employee Password:</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">Create Employee</button>
-</form>
+<section class="form-card">
+    <p class="eyebrow">Team Setup</p>
+    <h1>Create Employee</h1>
+    <p class="section-copy">Add a new employee account linked to your owner profile.</p>
+    <form method="post" class="styled-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Employee Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Employee Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="primary-button">Create Employee</button>
+    </form>
+</section>
 {% endblock body %}
-
-{% if messages %}
-    <ul>
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-
-

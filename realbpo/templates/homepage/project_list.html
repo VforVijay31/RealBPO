@@ -1,12 +1,30 @@
-<h2>My Projects</h2>
-<ul>
-    {% for project in projects %}
-        <li>
-            {{ project.name }} - {{ project.status }}
-            <a href="{% url 'update_project' project.id %}">Edit</a>
-            <a href="{% url 'delete_project' project.id %}">Delete</a>
-        </li>
-    {% empty %}
-        <li>No projects yet.</li>
-    {% endfor %}
-</ul>
+{% extends "homepage/base.html" %}
+{% block body %}
+<section class="section-card">
+    <div class="section-header">
+        <div>
+            <p class="eyebrow">Projects</p>
+            <h1>My Projects</h1>
+        </div>
+        <a href="{% url 'create_project' %}" class="button-link">Create Project</a>
+    </div>
+
+    <div class="item-list">
+        {% for project in projects %}
+            <div class="list-card">
+                <div>
+                    <h3>{{ project.name }}</h3>
+                    <p>Status: {{ project.status }}</p>
+                </div>
+                <div class="action-row compact">
+                    <a href="{% url 'view_project' project.id %}">View</a>
+                    <a href="{% url 'update_project' project.id %}">Edit</a>
+                    <a href="{% url 'delete_project' project.id %}" class="danger-link">Delete</a>
+                </div>
+            </div>
+        {% empty %}
+            <p class="empty-state">No projects yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock body %}
