@@ -1,14 +1,17 @@
 {% extends "homepage/base.html" %}
 
 {% block body %}
-<h2>Add Outsourced Service to {{ project.name }}</h2>
-
-<form method="POST">
-    {% csrf_token %}
-    {{ service_form.as_p }}
-    <button type="submit">Add Service</button>
-</form>
-
-<a href="{% url 'view_project' project.id %}">Back to Project</a>
+<section class="form-card">
+    <p class="eyebrow">Service Entry</p>
+    <h1>Add Outsourced Service</h1>
+    <p class="section-copy">Project: {{ project.name }}</p>
+    <form method="POST" class="styled-form django-form">
+        {% csrf_token %}
+        {{ service_form.as_p }}
+        <div class="action-row">
+            <button type="submit" class="primary-button">Add Service</button>
+            <a href="{% url 'view_project' project.id %}" class="button-link button-link-secondary">Back to Project</a>
+        </div>
+    </form>
+</section>
 {% endblock body %}
-

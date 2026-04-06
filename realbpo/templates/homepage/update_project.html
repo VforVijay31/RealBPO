@@ -1,35 +1,43 @@
 {% extends "homepage/base.html" %}
 
 {% block body %}
-<h2>Edit Project: {{ project.name }}</h2>
+<section class="form-card">
+    <p class="eyebrow">Project Update</p>
+    <h1>Edit Project: {{ project.name }}</h1>
+    <form method="POST" class="styled-form django-form">
+        {% csrf_token %}
+        {{ project_form.as_p }}
+        <div class="action-row">
+            <button type="submit" class="primary-button">Save Changes</button>
+            <a href="{% url 'dashboard' %}" class="button-link button-link-secondary">Back to Dashboard</a>
+        </div>
+    </form>
+</section>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ project_form.as_p }}
-    <button type="submit">Save Changes</button>
-</form>
+<section class="section-card">
+    <div class="section-header">
+        <h2>Outsourced Services</h2>
+        <a href="{% url 'add_service' project.id %}" class="button-link">Add New Service</a>
+    </div>
 
-<h3>Outsourced Services</h3>
-<ul>
-    {% for service in project.services.all %}
-        <li>
-            <strong>{{ service.service_name }}</strong><br>
-            Provider: {{ service.provider_name }}<br>
-            Status: {{ service.status }}<br>
-            Completion: {{ service.completion_percentage }}%<br>
-            Contact No: {{ service.contact_no }}<br>
-            Email: {{ service.contact_mail }}<br>
-
-            <a href="{% url 'edit_service' service.id %}" class="btn btn-sm btn-secondary">Edit Service</a>
-        </li>
-        <hr>
-    {% empty %}
-        <li>No outsourced services yet.</li>
-    {% endfor %}
-</ul>
-
-
-<a href="{% url 'add_service' project.id %}">Add New Service</a>
-
-<a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+    <div class="item-list">
+        {% for service in project.services.all %}
+            <div class="list-card service-card">
+                <div>
+                    <h3>{{ service.service_name }}</h3>
+                    <p>Provider: {{ service.provider_name }}</p>
+                    <p>Status: {{ service.status }}</p>
+                    <p>Completion: {{ service.completion_percentage }}%</p>
+                    <p>Contact No: {{ service.contact_no }}</p>
+                    <p>Email: {{ service.contact_mail }}</p>
+                </div>
+                <div class="action-row compact">
+                    <a href="{% url 'edit_service' service.id %}">Edit Service</a>
+                </div>
+            </div>
+        {% empty %}
+            <p class="empty-state">No outsourced services yet.</p>
+        {% endfor %}
+    </div>
+</section>
 {% endblock body %}

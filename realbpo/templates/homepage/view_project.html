@@ -1,30 +1,51 @@
-<h2>Project Details</h2>
-<p><strong>Name:</strong> {{ project.name }}</p>
-<p><strong>Status:</strong> {{ project.status }}</p>
-<p><strong>Description:</strong> {{ project.description }}</p>
+{% extends "homepage/base.html" %}
+{% block body %}
+<section class="section-card">
+    <div class="section-header">
+        <div>
+            <p class="eyebrow">Project Details</p>
+            <h1>{{ project.name }}</h1>
+        </div>
+        <div class="action-row">
+            {% if request.user.profile.role in "owner employee" %}
+                <a href="{% url 'add_service' project.id %}" class="button-link">Add Service</a>
+            {% endif %}
+            <a href="{% url 'dashboard' %}" class="button-link button-link-secondary">Back to Dashboard</a>
+        </div>
+    </div>
 
-<h3>Outsourced Services</h3>
-<ul>
-    {% for service in project.services.all %}
-        <li>
-            <strong>{{ service.service_name }}</strong><br>
-            Provider: {{ service.provider_name }}<br>
-            Status: {{ service.status }}<br>
-            Completion: {{ service.completion_percentage }}%<br>
-            Contact No: {{ service.contact_no }}<br>
-            Email: {{ service.contact_mail }}<br>
+    <div class="detail-grid">
+        <div class="detail-card">
+            <span class="detail-label">Status</span>
+            <strong>{{ project.status }}</strong>
+        </div>
+        <div class="detail-card detail-card-wide">
+            <span class="detail-label">Description</span>
+            <p>{{ project.description|default:"No description provided." }}</p>
+        </div>
+    </div>
+</section>
 
-            <a href="{% url 'edit_service' service.id %}" class="btn btn-sm btn-secondary">Edit Service</a>
-        </li>
-        <hr>
-    {% empty %}
-        <li>No outsourced services yet.</li>
-    {% endfor %}
-</ul>
-
-
-{% if request.user.profile.role in "owner employee" %}
-    <a href="{% url 'add_service' project.id %}">Add New Service</a>
-
-{% endif %}
-<a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+<section class="section-card">
+    <h2>Outsourced Services</h2>
+    <div class="item-list">
+        {% for service in project.services.all %}
+            <div class="list-card service-card">
+                <div>
+                    <h3>{{ service.service_name }}</h3>
+                    <p>Provider: {{ service.provider_name }}</p>
+                    <p>Status: {{ service.status }}</p>
+                    <p>Completion: {{ service.completion_percentage }}%</p>
+                    <p>Contact No: {{ service.contact_no }}</p>
+                    <p>Email: {{ service.contact_mail }}</p>
+                </div>
+                <div class="action-row compact">
+                    <a href="{% url 'edit_service' service.id %}">Edit Service</a>
+                </div>
+            </div>
+        {% empty %}
+            <p class="empty-state">No outsourced services yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock body %}

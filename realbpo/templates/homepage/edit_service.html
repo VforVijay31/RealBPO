@@ -1,13 +1,16 @@
 {% extends "homepage/base.html" %}
 
 {% block body %}
-<h2>Edit Service: {{ service.service_name }}</h2>
-
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
-</form>
-
-<a href="{% url 'view_project' service.project.id %}">Back to Project</a>
+<section class="form-card">
+    <p class="eyebrow">Service Update</p>
+    <h1>Edit Service: {{ service.service_name }}</h1>
+    <form method="POST" class="styled-form django-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="action-row">
+            <button type="submit" class="primary-button">Save Changes</button>
+            <a href="{% url 'view_project' service.project.id %}" class="button-link button-link-secondary">Back to Project</a>
+        </div>
+    </form>
+</section>
 {% endblock body %}
