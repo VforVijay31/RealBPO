@@ -1,0 +1,26 @@
+pipeline {
+    agent { label 'built-in' }
+    triggers {
+        pollSCM('*/5 * * * *')
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building.."
+                sh 'docker pull vijayshriram2005/realbpo:v1'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Testing.."
+                sh 'docker compose up -d'
+            }
+        }
+        stage('Deliver') {
+            steps {
+                echo 'Deliver....'
+                echo "doing delivery stuff.."
+            }
+        }
+    }
+}
