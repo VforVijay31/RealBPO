@@ -1,8 +1,0 @@
-services:
-  bpo:
-    build: .
-    image: realbpo:v1
-    container_name: realbpo_container
-    hostname: bpo
-    ports:
-      - "2000:8000"

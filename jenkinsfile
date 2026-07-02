@@ -1,26 +1,35 @@
 pipeline {
-    agent { label 'built-in' }
-    triggers {
-        pollSCM('*/5 * * * *')
+    agent { label 'built-in'}
+    environment {
+        DOCKER_HOST = 'tcp://docker:2376'
+        DOCKER_CERT_PATH = '/certs/client'
+        DOCKER_TLS_VERIFY = '1'   
     }
     stages {
-        stage('Build') {
+       stage('get from git'){
+           steps{
+               git branch:'main',url:'https://github.com/VforVijay31/RealBPO.git'
+           }
+       }
+
+
+        stage('docker build') {
             steps {
-                echo "Building.."
-                sh 'docker pull vijayshriram2005/realbpo:v1'
+                sh '''
+                    docker build -t vijayshriram2005/realbpo:v2 .
+                '''   }
+        }
+        stage('docker push'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'dhubcred', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh '''
+                        echo $DOCKER_PASS | docker login -u "$DOCKER_USER" --password-stdin
+                        docker push vijayshriram2005/realbpo:v2
+                    '''
+                }
             }
         }
-        stage('Test') {
-            steps {
-                echo "Testing.."
-                sh 'docker compose up -d'
-            }
-        }
-        stage('Deliver') {
-            steps {
-                echo 'Deliver....'
-                echo "doing delivery stuff.."
-            }
-        }
+
+        
     }
 }
